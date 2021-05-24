@@ -1,11 +1,13 @@
 package com.bankguru.user;
 
-import common.AbstractPage;
+import browserFactory.DriverManager;
+import browserFactory.DriverMangerFactory;
+import common.AbstractTest;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageObjects.LoginPageObject;
 import pageObjects.MainPageObject;
@@ -14,24 +16,27 @@ import pageObjects.RegisterPageObject;
 
 import java.util.Random;
 
-public class Level_04_Page_Object_Pattern extends AbstractPage {
+public class Level_06_Browser_Factory extends AbstractTest {
 
     WebDriver driver;
     String projectPath = System.getProperty("user.dir");
-    String loginPageUrl, userID, password;
+    String loginPageUrl, invalidUser, invalidPass, userID, password;
     String customerName, dobirth, address, city, phone, pin, email;
 
-
+    DriverManager driverManager;
     LoginPageObject loginPage;
     RegisterPageObject registerPage;
     MainPageObject mainPage;
     NewCustomerPageObject newPage;
 
+    @Parameters("browser")
     @BeforeClass
-    public void setUp() {
+    public void beforeClass(String browserName) {
+
         System.setProperty("webdriver.chrome.driver", projectPath +
                 "\\browserDriver\\chromedriver.exe");
-        driver = new ChromeDriver();
+        invalidUser = "ha1";
+        invalidPass = "123";
         customerName = "ha";
         dobirth = "01-01-1996";
         address = "ABC";
@@ -39,13 +44,15 @@ public class Level_04_Page_Object_Pattern extends AbstractPage {
         phone = "0343020504";
         pin = "134678";
         email = "ha" + randomNumber() + "@gmail.com";
-        driver.get("http://www.demo.guru99.com/v4/");
-        driver.manage().window().maximize();
+        driverManager= DriverMangerFactory.getBrowserDriver(browserName);
+        driver =driverManager.getDriver();
+
+//        driver = getBrowserDriver(browserName);
         loginPage = new LoginPageObject(driver);
 
     }
 
-    // @Test
+    @Test
     public void verifyTC_01_Register_To_System() {
         loginPageUrl = loginPage.getLoginPageUrl();
         loginPage.clickToHereLink();
@@ -64,24 +71,12 @@ public class Level_04_Page_Object_Pattern extends AbstractPage {
     }
 
     @Test
-    public void verifyWhenLoginWithIncorrectName() {
-        loginPageUrl = loginPage.getLoginPageUrl();
-//        loginPage.clickToHereLink();
-        registerPage = new RegisterPageObject(driver);
-        registerPage.openLoginPage(loginPageUrl);
-        loginPage = new LoginPageObject(driver);
-        loginPage.inputInvalidUser("af");
-        loginPage.inputInvalidPass("1234");
-        loginPage.clickToLoginBtn();
-        loginPage.verifyAlertWhenLoginUnsuccessfully();
-
-    }
-
-
-    // @Test
     public void verify_Login() {
         registerPage.openLoginPage(loginPageUrl);
         loginPage = new LoginPageObject(driver);
+        loginPage.inputInvalidUser(invalidUser);
+        loginPage.inputInvalidPass(invalidPass);
+        loginPage.clickToLoginBtnInvalid();
         loginPage.inputToUserTextBox(userID);
         loginPage.inputToPassTextBox(password);
         loginPage.clickToLoginBtn();
@@ -94,7 +89,7 @@ public class Level_04_Page_Object_Pattern extends AbstractPage {
 //        sendKeyToElement(driver,"//input[@name='password']",password);
 //        clickToElement(driver,"//input[@name='btnLogin']");
 
-    // @Test
+    //    @Test
     public void open_New_Customer_Page() {
         mainPage.openNewCustomerPage();
         newPage = new NewCustomerPageObject(driver);
@@ -111,7 +106,7 @@ public class Level_04_Page_Object_Pattern extends AbstractPage {
 
     }
 
-    @Test
+    //    @Test
     public void logout() {
         newPage.clickToLogoutLink();
 

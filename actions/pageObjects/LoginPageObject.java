@@ -64,4 +64,11 @@ public class LoginPageObject extends AbstractPage {
         waitToAlertPresence(driver);
         acceptAlert(driver);
     }
+    public void verifyAlertWhenLoginUnsuccessfully()  {
+        waitToAlertPresence(driver);
+        sleepInSecond(3);
+        Assert.assertEquals(verifyGetTextAlert(driver),"User or Password is not valid");
+        acceptAlert(driver);
+
+    }
 }

@@ -20,7 +20,7 @@ public class AbstractPage {
     JavascriptExecutor jsExecutor;
     private Actions action;
     private WebElement element;
-    private long longTimeOut = 30;
+    private long longTimeOut = 30000;
 
 
     public void openUrl(WebDriver driver, String Url) {
@@ -75,7 +75,7 @@ public class AbstractPage {
 
     public String verifyGetTextAlert(WebDriver driver) {
         alert = driver.switchTo().alert();
-        return alert.getText();
+        return alert.getText().trim();
     }
 
     public void switchToWindowByID(WebDriver driver, String parentID) {
