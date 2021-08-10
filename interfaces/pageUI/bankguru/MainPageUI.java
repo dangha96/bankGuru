@@ -1,4 +1,4 @@
-package pageUI;
+package pageUI.bankguru;
 
 public class MainPageUI {
     public static final String WELCOM_TEXT ="//marquee[@class='heading3']";

@@ -3,17 +3,15 @@ package pageFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
-import pageUI.LoginPageUI;
-import pageUI.NewCustomerUI;
 
 public class LoginPageObject extends AbtractPage {
     WebDriver driver;
     public LoginPageObject (WebDriver driver){
         this.driver=driver;
         PageFactory.initElements(driver, LoginPageObject.class);
+        // Create link between value in FindBy and variable WebElement
     }
     //findBy/ findBys/ findAll
     @FindBy (xpath = "a[text()='here']")
@@ -28,15 +26,13 @@ public class LoginPageObject extends AbtractPage {
     @FindBy (name = "btnLogin")
     private WebElement loginBtn;
 
-    @FindBy (name = "frmLogin")
+    @FindBy (css = "form[@name='frmLogin']")
     private WebElement loginForm;
 
 
     public void clickToHereLink() {
         waitElementClickable(driver, herLink);
         clickToElement(driver, herLink);
-
-
     }
 
     public String getLoginPageUrl() {
@@ -74,7 +70,7 @@ public class LoginPageObject extends AbtractPage {
 
     public boolean isLoginFormDisplayed() {
         waitElementVisible(driver, loginForm);
-        return isControlDisplayed(driver, loginForm);
+        return isControlDisplayed(driver,loginForm);
     }
 
 //    public void clickToLogoutLink() {
@@ -90,4 +86,5 @@ public class LoginPageObject extends AbtractPage {
         acceptAlert(driver);
 
     }
+
 }

@@ -1,8 +1,9 @@
-package pageObjects;
+package pageObjects.bankguru;
 
 import common.AbstractPage;
 import org.openqa.selenium.WebDriver;
-import pageUI.RegisterPageUI;
+import pageUI.bankguru.NewCustomerUI;
+import pageUI.bankguru.RegisterPageUI;
 
 public class RegisterPageObject extends AbstractPage {
     WebDriver driver;
@@ -16,8 +17,8 @@ public class RegisterPageObject extends AbstractPage {
     }
 
     public void clickToSubmitBtn() {
-        waitElementVisible(driver,RegisterPageUI.LOGIN_BTN);
-        clickToElement(driver,RegisterPageUI.LOGIN_BTN);
+        waitElementClickable(driver,RegisterPageUI.SUBMIT_BTN);
+        clickToElement(driver,RegisterPageUI.SUBMIT_BTN);
     }
 
     public String getUserText() {
@@ -30,7 +31,19 @@ public class RegisterPageObject extends AbstractPage {
         return getElementText(driver,RegisterPageUI.PASSWORD_TEXT);
     }
 
+//    public LoginPageObject openLoginPage(String loginPageUrl) {
+//        openUrl(driver,loginPageUrl);
+//        return new LoginPageObject(driver);}
+
     public void openLoginPage(String loginPageUrl) {
-        openUrl(driver,loginPageUrl);
+       openUrl(driver,loginPageUrl);
+
+    }
+    public LoginPageObject clickToLogoutLink() {
+        waitElementClickable(driver, NewCustomerUI.LOGOUT);
+        clickToElement(driver,NewCustomerUI.LOGOUT);
+        waitToAlertPresence(driver);
+        acceptAlert(driver);
+        return new LoginPageObject(driver);
     }
 }

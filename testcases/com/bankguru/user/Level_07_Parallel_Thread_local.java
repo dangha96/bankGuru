@@ -7,10 +7,10 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageObjects.LoginPageObject;
-import pageObjects.MainPageObject;
-import pageObjects.NewCustomerPageObject;
-import pageObjects.RegisterPageObject;
+import pageObjects.bankguru.LoginPageObject;
+import pageObjects.bankguru.MainPageObject;
+import pageObjects.bankguru.NewCustomerPageObject;
+import pageObjects.bankguru.RegisterPageObject;
 
 import java.util.Random;
 
@@ -18,7 +18,7 @@ public class Level_07_Parallel_Thread_local extends AbstractTest {
 
     WebDriver driver;
     String projectPath = System.getProperty("user.dir");
-    String loginPageUrl,invalidUser,invalidPass, userID, password;
+    String loginPageUrl, invalidUser, invalidPass, userID, password;
     String customerName, dobirth, address, city, phone, pin, email;
 
 
@@ -33,8 +33,8 @@ public class Level_07_Parallel_Thread_local extends AbstractTest {
 
         System.setProperty("webdriver.chrome.driver", projectPath +
                 "\\browserDriver\\chromedriver.exe");
-        invalidUser="ha1";
-        invalidPass="123";
+        invalidUser = "ha1";
+        invalidPass = "123";
         customerName = "ha";
         dobirth = "01-01-1996";
         address = "ABC";
@@ -43,7 +43,7 @@ public class Level_07_Parallel_Thread_local extends AbstractTest {
         pin = "134678";
         email = "ha" + randomNumber() + "@gmail.com";
 
-        driver= getBrowserDriver(browserName);
+        driver = getBrowserDriver(browserName);
         loginPage = new LoginPageObject(driver);
 
     }
@@ -85,7 +85,7 @@ public class Level_07_Parallel_Thread_local extends AbstractTest {
 //        sendKeyToElement(driver,"//input[@name='password']",password);
 //        clickToElement(driver,"//input[@name='btnLogin']");
 
-//    @Test
+    //    @Test
     public void open_New_Customer_Page() {
         mainPage.openNewCustomerPage();
         newPage = new NewCustomerPageObject(driver);
@@ -102,7 +102,7 @@ public class Level_07_Parallel_Thread_local extends AbstractTest {
 
     }
 
-//    @Test
+    //    @Test
     public void logout() {
         newPage.clickToLogoutLink();
 

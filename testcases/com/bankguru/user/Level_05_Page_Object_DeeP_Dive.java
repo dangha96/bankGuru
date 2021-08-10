@@ -3,14 +3,13 @@ package com.bankguru.user;
 import common.AbstractPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import pageObjects.LoginPageObject;
-import pageObjects.MainPageObject;
-import pageObjects.NewCustomerPageObject;
-import pageObjects.RegisterPageObject;
+import pageObjects.bankguru.LoginPageObject;
+import pageObjects.bankguru.MainPageObject;
+import pageObjects.bankguru.NewCustomerPageObject;
+import pageObjects.bankguru.RegisterPageObject;
 
 import java.util.Random;
 

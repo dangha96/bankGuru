@@ -18,10 +18,49 @@ public abstract class AbtractPage {
     public String getCurrentUrl(WebDriver driver) {
         return driver.getCurrentUrl();
     }
+
+
     public void openUrl(WebDriver driver, String Url) {
         driver.get(Url);
         driver.manage().timeouts().implicitlyWait(longTimeOut, TimeUnit.SECONDS);
     }
+
+    public void waitToElementVisible(WebDriver driver, WebElement element) {
+        explicitWait = new WebDriverWait(driver, longTimeOut);
+        explicitWait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public void waitToElementInVisible(WebDriver driver, String locator) {
+        explicitWait = new WebDriverWait(driver, longTimeOut);
+        explicitWait.until(ExpectedConditions.invisibilityOf(element));
+    }
+
+    public void waitToElementClickable(WebDriver driver, String locator) {
+        explicitWait = new WebDriverWait(driver, longTimeOut);
+        explicitWait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    public void clickToElement(WebDriver driver, WebElement element) {
+       element.click();
+    }
+
+    public void sendKeyToElement(WebDriver driver, WebElement element, String value) {
+       element.clear();
+       element.sendKeys(value);
+    }
+
+    public String getElementText(WebDriver driver, WebElement element) {
+        return element.getText();
+    }
+
+
+
+
+
+
+
+
+
 
     public void waitToAlertPresence(WebDriver driver) {
         explicitWait = new WebDriverWait(driver, longTimeOut);
@@ -31,14 +70,6 @@ public abstract class AbtractPage {
 //        return By.xpath(locator);
 //    }
 
-    public void clickToElement(WebDriver driver, WebElement element) {
-        element.click();
-    }
-
-    public void sendKeyToElement(WebDriver driver,WebElement element, String value) {
-        element.clear();
-       element.sendKeys(value);
-    }
     public String getElementText(WebDriver driver, String locator) {
         return element.getText();
     }

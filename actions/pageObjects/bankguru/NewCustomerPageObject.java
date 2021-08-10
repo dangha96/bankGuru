@@ -1,8 +1,8 @@
-package pageObjects;
+package pageObjects.bankguru;
 
 import common.AbstractPage;
 import org.openqa.selenium.WebDriver;
-import pageUI.NewCustomerUI;
+import pageUI.bankguru.NewCustomerUI;
 
 public class NewCustomerPageObject extends AbstractPage {
     WebDriver driver;
@@ -16,34 +16,38 @@ public class NewCustomerPageObject extends AbstractPage {
     }
 
     public void inputToDobBox(String dob) {
-        waitElementVisible(driver,NewCustomerUI.DOB);
-        removeAttributeInDOM(driver,NewCustomerUI.DOB,"type");
-        sendKeyToElement(driver,NewCustomerUI.DOB,dob);
+        waitElementVisible(driver,NewCustomerUI.DOB_TEXTBOX);
+        removeAttributeInDOM(driver,NewCustomerUI.DOB_TEXTBOX,"type");
+        sendKeyToElement(driver,NewCustomerUI.DOB_TEXTBOX,dob);
     }
 
     public void inputToAddressTextBox(String address) {
-        waitElementVisible(driver,NewCustomerUI.ADDRESS);
-        sendKeyToElement(driver,NewCustomerUI.ADDRESS,address);
+        waitElementVisible(driver,NewCustomerUI.ADDRESS_TEXTAREA);
+        sendKeyToElement(driver,NewCustomerUI.ADDRESS_TEXTAREA,address);
     }
 
     public void inputToCityTextBox(String city) {
-        waitElementVisible(driver,NewCustomerUI.CITY);
-        sendKeyToElement(driver,NewCustomerUI.CITY,city);
+        waitElementVisible(driver,NewCustomerUI.CITY_TEXTBOX);
+        sendKeyToElement(driver,NewCustomerUI.CITY_TEXTBOX,city);
     }
 
     public void inputToPinTextBox(String pin) {
-        waitElementVisible(driver,NewCustomerUI.PIN);
-        sendKeyToElement(driver,NewCustomerUI.PIN,pin);
+        waitElementVisible(driver,NewCustomerUI.PIN_TEXTBOX);
+        sendKeyToElement(driver,NewCustomerUI.PIN_TEXTBOX,pin);
+    }
+    public void inputToStateTextBox(String state) {
+        waitElementVisible(driver,NewCustomerUI.STATE_TEXTBOX);
+        sendKeyToElement(driver,NewCustomerUI.STATE_TEXTBOX,state);
     }
 
     public void inputToMobileTextBox(String mobile) {
-        waitElementVisible(driver,NewCustomerUI.MOBILE);
-        sendKeyToElement(driver,NewCustomerUI.MOBILE, mobile);
+        waitElementVisible(driver,NewCustomerUI.MOBILE_TEXTBOX);
+        sendKeyToElement(driver,NewCustomerUI.MOBILE_TEXTBOX, mobile);
     }
 
     public void inputToEmailTextBox(String email) {
-        waitElementVisible(driver,NewCustomerUI.EMAIL);
-        sendKeyToElement(driver,NewCustomerUI.EMAIL,email);
+        waitElementVisible(driver,NewCustomerUI.EMAIL_TEXTBOX);
+        sendKeyToElement(driver,NewCustomerUI.EMAIL_TEXTBOX,email);
     }
 
     public void inputToPasswordTextBox(String pass) {
@@ -62,10 +66,11 @@ public class NewCustomerPageObject extends AbstractPage {
         return getElementText(driver,NewCustomerUI.NEW_SUCCESS_MESS);
     }
 
-    public void clickToLogoutLink() {
+    public LoginPageObject clickToLogoutLink() {
         waitElementClickable(driver,NewCustomerUI.LOGOUT);
         clickToElement(driver,NewCustomerUI.LOGOUT);
         waitToAlertPresence(driver);
         acceptAlert(driver);
+        return new LoginPageObject(driver);
     }
 }

@@ -7,10 +7,9 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageObjects.LoginPageObject;
-import pageObjects.MainPageObject;
-import pageObjects.NewCustomerPageObject;
-import pageObjects.RegisterPageObject;
+import pageFactory.LoginPageObject;
+import pageFactory.MainPageObject;
+import pageFactory.RegisterPageObject;
 
 import java.util.Random;
 
@@ -20,12 +19,9 @@ public class Level_08_Selenium_Page_Factory extends AbstractTest {
     String projectPath = System.getProperty("user.dir");
     String loginPageUrl,invalidUser,invalidPass, userID, password;
     String customerName, dobirth, address, city, phone, pin, email;
-
-
     LoginPageObject loginPage;
     RegisterPageObject registerPage;
     MainPageObject mainPage;
-    NewCustomerPageObject newPage;
 
     @Parameters("browser")
     @BeforeClass
@@ -86,29 +82,29 @@ public class Level_08_Selenium_Page_Factory extends AbstractTest {
 //        clickToElement(driver,"//input[@name='btnLogin']");
 
 //    @Test
-    public void open_New_Customer_Page() {
-        mainPage.openNewCustomerPage();
-        newPage = new NewCustomerPageObject(driver);
-        newPage.inputToNameTextBox(customerName);
-        newPage.inputToDobBox(dobirth);
-        newPage.inputToAddressTextBox(address);
-        newPage.inputToCityTextBox(city);
-        newPage.inputToPinTextBox(pin);
-        newPage.inputToMobileTextBox(phone);
-        newPage.inputToEmailTextBox(email);
-        newPage.inputToPasswordTextBox(password);
-        newPage.clickSubmitBtn();
-        Assert.assertEquals(newPage.getSuccessMess(), "Customer Registered Successfully!!!");
-
-    }
+//    public void open_New_Customer_Page() {
+//        mainPage.openNewCustomerPage();
+//        newPage = new NewCustomerPageObject(driver);
+//        newPage.inputToNameTextBox(customerName);
+//        newPage.inputToDobBox(dobirth);
+//        newPage.inputToAddressTextBox(address);
+//        newPage.inputToCityTextBox(city);
+//        newPage.inputToPinTextBox(pin);
+//        newPage.inputToMobileTextBox(phone);
+//        newPage.inputToEmailTextBox(email);
+//        newPage.inputToPasswordTextBox(password);
+//        newPage.clickSubmitBtn();
+//        Assert.assertEquals(newPage.getSuccessMess(), "Customer Registered Successfully!!!");
+//
+//    }
 
 //    @Test
-    public void logout() {
-        newPage.clickToLogoutLink();
-
-        loginPage = new LoginPageObject(driver);
-        Assert.assertTrue(loginPage.isLoginFormDisplayed());
-    }
+//    public void logout() {
+//        newPage.clickToLogoutLink();
+//
+//        loginPage = new LoginPageObject(driver);
+//        Assert.assertTrue(loginPage.isLoginFormDisplayed());
+//    }
 
     public int randomNumber() {
         Random random = new Random();

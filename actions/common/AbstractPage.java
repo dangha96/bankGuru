@@ -6,11 +6,12 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageObjects.bankguru.NewCustomerPageObject;
+import pageUI.bankguru.AbstractPageUI;
 
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
 
 
 public class AbstractPage {
@@ -20,7 +21,7 @@ public class AbstractPage {
     JavascriptExecutor jsExecutor;
     private Actions action;
     private WebElement element;
-    private long longTimeOut = 30000;
+    private long longTimeOut = GlobalConstant.LONG_TIMEOUT;
 
 
     public void openUrl(WebDriver driver, String Url) {
@@ -50,7 +51,7 @@ public class AbstractPage {
     }
 
     public void verifyForward(WebDriver driver) {
-        driver.navigate().back();
+        driver.navigate().forward();
     }
 
     public void waitToAlertPresence(WebDriver driver) {
@@ -124,13 +125,30 @@ public class AbstractPage {
 
     }
 
+    public String castToRestParameter(String locator, String... value) {
+        locator = String.format(locator, (Object[]) value);
+        return locator;
+
+    }
+
+
     public void clickToElement(WebDriver driver, String locator) {
         find(driver, locator).click();
     }
 
+    public void clickToElement(WebDriver driver, String locator, String... values) {
+        find(driver, castToRestParameter(locator, values)).click();
+    }
+
+
     public void sendKeyToElement(WebDriver driver, String locator, String value) {
         find(driver, locator).clear();
         find(driver, locator).sendKeys(value);
+    }
+
+    public void sendKeyToElement(WebDriver driver, String locator, String value, String... values) {
+        find(driver, castToRestParameter(locator, values)).clear();
+        find(driver, castToRestParameter(locator, values)).sendKeys(value);
     }
 
     public void selectItemInDropDown(WebDriver driver, String locator, String itemValue) {
@@ -207,6 +225,12 @@ public class AbstractPage {
     public boolean isControlDisplayed(WebDriver driver, String locator) {
         return find(driver, locator).isDisplayed();
     }
+
+    public void isControlDisplayed(WebDriver driver, String locator, String... values) {
+        find(driver, castToRestParameter(locator, values)).isDisplayed();
+
+    }
+
 
     public boolean isControlEnable(WebDriver driver, String locator) {
         return find(driver, locator).isEnabled();
@@ -360,6 +384,12 @@ public class AbstractPage {
         explicitWait.until(ExpectedConditions.visibilityOfElementLocated(byXpath(locator)));
     }
 
+    public void waitElementVisible(WebDriver driver, String locator, String... values) {
+        explicitWait = new WebDriverWait(driver, longTimeOut);
+        explicitWait.until(ExpectedConditions.visibilityOfElementLocated(byXpath(castToRestParameter(locator, values))));
+    }
+
+
     public void waitElementInVisible(WebDriver driver, String locator) {
         explicitWait = new WebDriverWait(driver, longTimeOut);
         explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(byXpath(locator)));
@@ -369,7 +399,14 @@ public class AbstractPage {
         explicitWait = new WebDriverWait(driver, longTimeOut);
         explicitWait.until(ExpectedConditions.elementToBeClickable(byXpath(locator)));
     }
-    public void clearTextBox(WebDriver driver, String locator){
+
+    public void waitElementClickable(WebDriver driver, String locator, String... values) {
+        explicitWait = new WebDriverWait(driver, longTimeOut);
+        explicitWait.until(ExpectedConditions.elementToBeClickable(byXpath(castToRestParameter(locator, values))));
+    }
+
+
+    public void clearTextBox(WebDriver driver, String locator) {
 
     }
 
@@ -382,5 +419,38 @@ public class AbstractPage {
 
     }
 
+    /*Open Bank guru*/
+    public NewCustomerPageObject openNewCustomerPage(WebDriver driver) {
+        waitElementClickable(driver, AbstractPageUI.NEW_CUSTOMER_LINK);
+        clickToElement(driver,AbstractPageUI.NEW_CUSTOMER_LINK);
+        return PageGeneratorManager.getNewCustomerPage(driver);
+    }
+//    public EditCustomer openEditCustomerPage(WebDriver driver) {
+//        waitElementClickable(driver, AbstractPageUI.EDIT_CUSTOMER_LINK);
+//        clickToElement(driver,AbstractPageUI.EDIT_CUSTOMER_LINK);
+//        return PageGeneratorManager.ge(driver);
+//    }
+
+    /*Open DYNAMIC page menu*/
+    /*Số lượng page ít 10-15*/
+
+    public AbstractPage openMenuPageByName(WebDriver driver, String pageName){
+        waitElementClickable(driver, AbstractPageUI.DYNAMIC_MENU_PAGE_LINK, pageName);
+        clickToElement(driver,AbstractPageUI.DYNAMIC_MENU_PAGE_LINK, pageName);
+        if(pageName.equals("New Customer")){
+             return PageGeneratorManager.getNewCustomerPage(driver);
+        } else {
+            throw new RuntimeException();
+        }
+
+    }
+
+    /*Number of page from 100..*/
+    public void openManyPageByName(WebDriver driver, String pageName){
+        waitElementClickable(driver, AbstractPageUI.DYNAMIC_MENU_PAGE_LINK, pageName);
+        clickToElement(driver,AbstractPageUI.DYNAMIC_MENU_PAGE_LINK, pageName);
+
+
+    }
 }
 

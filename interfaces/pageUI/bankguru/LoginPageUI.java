@@ -1,13 +1,12 @@
-package pageUI;
+package pageUI.bankguru;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import pageFactory.LoginPageObject;
 
 public class LoginPageUI {
     WebDriver driver;
-    public LoginPageObject (WebDriver driver){
+    public void LoginPageObject (WebDriver driver){
         this.driver=driver;
 
         //Create link between value in FindBy  with variable WebElement

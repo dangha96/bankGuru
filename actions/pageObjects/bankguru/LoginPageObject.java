@@ -1,23 +1,24 @@
-package pageObjects;
+package pageObjects.bankguru;
 
 import common.AbstractPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import pageUI.LoginPageUI;
-import pageUI.NewCustomerUI;
+import pageUI.bankguru.LoginPageUI;
+import pageUI.bankguru.NewCustomerUI;
 
 public class LoginPageObject extends AbstractPage {
     WebDriver driver;
 
+//ham khoi tao
     public LoginPageObject(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void clickToHereLink() {
+
+    public RegisterPageObject clickToHereLink() {
         waitElementClickable(driver, LoginPageUI.HERE_LINK);
         clickToElement(driver, LoginPageUI.HERE_LINK);
-
-
+        return new RegisterPageObject(driver);
     }
 
     public String getLoginPageUrl() {
@@ -48,9 +49,10 @@ public class LoginPageObject extends AbstractPage {
         acceptAlert(driver);
     }
 
-    public void clickToLoginBtn() {
+    public MainPageObject clickToLoginBtn() {
         waitElementVisible(driver, LoginPageUI.LOGIN_BTN);
         clickToElement(driver, LoginPageUI.LOGIN_BTN);
+        return new MainPageObject(driver);
     }
 
     public boolean isLoginFormDisplayed() {

@@ -1,21 +1,16 @@
 package com.bankguru.user;
 
-import common.AbstractPage;
 import common.AbstractTest;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageObjects.LoginPageObject;
-import pageObjects.MainPageObject;
-import pageObjects.NewCustomerPageObject;
-import pageObjects.RegisterPageObject;
+import pageObjects.bankguru.LoginPageObject;
+import pageObjects.bankguru.MainPageObject;
+import pageObjects.bankguru.NewCustomerPageObject;
+import pageObjects.bankguru.RegisterPageObject;
 
 import java.util.Random;
 
@@ -71,7 +66,7 @@ public class Level_05_Handle_Multi_Browser extends AbstractTest {
 
     }
 
-    @Test
+  //  @Test
     public void verify_Login() {
         registerPage.openLoginPage(loginPageUrl);
         loginPage = new LoginPageObject(driver);

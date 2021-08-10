@@ -6,7 +6,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import pageObjects.LoginPageObject;
 
 import java.util.concurrent.TimeUnit;
 
@@ -61,6 +60,7 @@ public abstract class AbstractTest {
 
 
         threadDriver.get().get("http://www.demo.guru99.com/v4/");
+       // threadDriver.get().get(appUrl);
         threadDriver.get().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         threadDriver.get().manage().window().maximize();
         return threadDriver.get();
