@@ -6,6 +6,7 @@ import pageUI.bankguru.NewCustomerUI;
 import pageUI.bankguru.RegisterPageUI;
 
 public class RegisterPageObject extends AbstractPage {
+
     WebDriver driver;
     public RegisterPageObject(WebDriver driver) {
         this.driver = driver;
@@ -15,6 +16,21 @@ public class RegisterPageObject extends AbstractPage {
         waitElementVisible(driver,RegisterPageUI.EMAIL_TEXTBOX);
         sendKeyToElement(driver,RegisterPageUI.EMAIL_TEXTBOX,email);
     }
+    public void deleteTextInTextBox(){
+        waitElementVisible(driver,RegisterPageUI.EMAIL_TEXTBOX);
+        clearTextBox(driver,RegisterPageUI.EMAIL_TEXTBOX);
+    }
+    public String getErrorMessage(){
+        waitElementVisible(driver,RegisterPageUI.ERROR_TEXT);
+        return getElementText(driver,RegisterPageUI.ERROR_TEXT);
+    }
+    public String getSuccessMessage(){
+        waitElementVisible(driver, RegisterPageUI.REGIST_SUCCESS_TEXT);
+        return getElementText(driver,RegisterPageUI.REGIST_SUCCESS_TEXT);
+    }
+
+
+
 
     public void clickToSubmitBtn() {
         waitElementClickable(driver,RegisterPageUI.SUBMIT_BTN);

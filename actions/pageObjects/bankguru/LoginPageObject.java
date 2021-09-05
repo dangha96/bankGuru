@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import pageUI.bankguru.LoginPageUI;
 import pageUI.bankguru.NewCustomerUI;
+import pageUI.bankguru.RegisterPageUI;
 
 public class LoginPageObject extends AbstractPage {
     WebDriver driver;
@@ -33,6 +34,15 @@ public class LoginPageObject extends AbstractPage {
         waitElementVisible(driver,LoginPageUI.PASS_TEXTBOX);
         sendKeyToElement(driver,LoginPageUI.PASS_TEXTBOX,invalidPass);
     }
+
+    public String getErrorEmptyUser(){
+        waitElementVisible(driver, LoginPageUI.EMPTY_USER);
+        return getElementText(driver,LoginPageUI.EMPTY_USER);
+    }
+    public String getErrorEmptyPassWord(){
+        waitElementVisible(driver, LoginPageUI.EMPTY_PASSWORD);
+        return getElementText(driver,LoginPageUI.EMPTY_PASSWORD);
+    }
     public void inputToUserTextBox(String userID) {
         waitElementVisible(driver, LoginPageUI.USER_TEXTBOX);
         sendKeyToElement(driver, LoginPageUI.USER_TEXTBOX, userID);
@@ -55,6 +65,7 @@ public class LoginPageObject extends AbstractPage {
         return new MainPageObject(driver);
     }
 
+
     public boolean isLoginFormDisplayed() {
         waitElementVisible(driver, LoginPageUI.LOGIN_FORM);
         return isControlDisplayed(driver, LoginPageUI.LOGIN_FORM);
@@ -72,5 +83,10 @@ public class LoginPageObject extends AbstractPage {
         Assert.assertEquals(verifyGetTextAlert(driver),"User or Password is not valid");
         acceptAlert(driver);
 
+    }
+
+    public void clickOutside() {
+        waitElementVisible(driver,LoginPageUI.CLICK_TEXT);
+        clickToElement(driver,LoginPageUI.CLICK_TEXT);
     }
 }

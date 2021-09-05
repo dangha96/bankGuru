@@ -18,5 +18,7 @@ public class LoginPageUI {
     public static final String PASS_TEXTBOX="//input[@name='password']";
     public static final String LOGIN_BTN="//input[@name='btnLogin']";
     public static final String LOGIN_FORM="//form[@name='frmLogin']";
-    //public static final String ALERT_FORM=
+    public static final String EMPTY_USER="//label[@id='message23']";
+    public static final String EMPTY_PASSWORD="//label[@id='message18']";
+    public static final String CLICK_TEXT="//td[contains(text(),'Password')]";
 }
